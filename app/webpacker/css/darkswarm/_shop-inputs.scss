@@ -7,6 +7,13 @@
   }
 }
 
+
+  @media screen and (max-width: 425px) {
+    .row .columns.variant-quantity-column {
+      width: fit-content;
+    }
+  }
+
 .reveal-modal.product-bulk-modal {
   width: 27em;
 }

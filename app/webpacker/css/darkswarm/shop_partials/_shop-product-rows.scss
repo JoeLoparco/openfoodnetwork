@@ -1,195 +1,204 @@
-// GENERAL LAYOUT
 .row {
-  .columns {
-    padding-top: 0em;
-    padding-bottom: 0em;
-    line-height: 1.1;
-  }
+ .columns {
+   padding-top: 0em;
+   padding-bottom: 0em;
+   line-height: 1.1;
+ }
 }
 
 .shop-variants {
-  // product-thumb width + 1rem
-  padding-left: calc(22.222% + 1rem);
+ padding-left: calc(22.222% + 1rem);
 
-  @include breakpoint(phablet) {
-    padding-left: 0;
-    clear: left;
-  }
+ @include breakpoint(phablet) {
+   padding-left: 0;
+   clear: left;
+ }
 }
 
-// ROW VARIANTS
 .row.variants {
-  margin: 0 0 1em 0;
+ display: flex;
+ margin: 0 0 1em 0;
 
-  &.out-of-stock {
-    opacity: 0.2;
-  }
+ &.out-of-stock {
+   opacity: 0.2;
+ }
 
-  .variant-name,
-  .total-price {
-    padding-top: .74em;
-  }
-  .variant-price {
-    padding-top: .65em;
-  }
+ .variant-name,
+ .total-price {
+   padding-top: .74em;
+ }
 
-  // Variant name
-  .variant-name {
-    padding-left: 0;
-    padding-right: 0;
+ .variant-price {
+   flex: 1;
+   padding-top: .65em;
+ }
 
-    @include breakpoint(phablet) {
-      padding-left: 0.5rem;
-    }
+ .variant-name {
+   padding-left: 0;
+   padding-right: 0;
 
-    & > *:nth-child(n + 2) {
-      color: $grey-550;
-      font-size: 0.875rem;
-      font-style: italic;
-      line-height: normal;
-    }
-  }
+   @include breakpoint(phablet) {
+     padding-left: 0.5rem;
+   }
 
-  // Variant price
-  .variant-price {
-    white-space: nowrap;
-    @include breakpoint(phablet) {
-      padding-left: 1rem;
-    }
-  }
+   & > *:nth-child(n + 2) {
+     color: $grey-550;
+     font-size: 0.875rem;
+     font-style: italic;
+     line-height: normal;
+   }
+ }
 
-  .variant-unit-price {
-    color: $grey-700;
-    font-size: 0.85rem;
-    margin-top: 15px;
-    position: relative;
-    left: -1px;
-  }
+ .variant-price {
+   white-space: nowrap;
+   @include breakpoint(phablet) {
+     padding-left: 1rem;
+   }
+ }
 
-  // Total price
-  .total-price {
-    padding-left: 0rem;
-    color: $disabled-med;
+ // Modified for dynamic truncation
+ .variant-unit-price {
+   color: $grey-700;
+   font-size: 0.85rem;
+   margin-top: 15px;
+   position: relative;
+   left: -1px;
+   display: flex;         // Creates flex container for better control
+   align-items: center;   // Vertically centers content
+   min-width: 0;         // Allows flex item to shrink below content size
 
-    .filled {
-      color: $med-drk-grey;
-    }
+   span.unit_price_unit {
+     min-width: 0;       // Allows text to truncate instead of forcing container growth
+     display: inline-block; // Required for text-overflow
+     text-overflow: ellipsis; // Shows ... when truncated
+     white-space: nowrap;    // Prevents text wrapping
+     overflow: hidden;       // Hides overflowing text
+     vertical-align: bottom; // Aligns with other elements
+     flex: 0 1 auto;        // grow: 0, shrink: 1, basis: auto - allows shrinking but not growing
+   }
+ }
 
-    @include breakpoint(phablet) {
-      display: none;
-    }
-  }
+ .total-price {
+   padding-left: 0rem;
+   color: $disabled-med;
+   width: fit-content;
+
+   .filled {
+     color: $med-drk-grey;
+   }
+
+   @include breakpoint(phablet) {
+     display: none;
+   }
+ }
+
+ @media screen and (max-width: 425px) {
+   .variant-price {
+     flex: 1;
+   }
+ }
 }
 
-// ROW SUMMARY
 .summary {
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 1.25em;
-  background: #fff;
+ margin-left: 0;
+ margin-right: 0;
+ margin-bottom: 1.25em;
+ background: #fff;
 
-  .columns {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    line-height: 1;
+ .columns {
+   padding-top: 1em;
+   padding-bottom: 1em;
+   line-height: 1;
 
-    @include breakpoint(tablet) {
-      padding-top: 0.65rem;
-      padding-bottom: 0.65rem;
-    }
-  }
+   @include breakpoint(tablet) {
+     padding-top: 0.65rem;
+     padding-bottom: 0.65rem;
+   }
+ }
 
-  .summary-header {
-    // product-thumb width + 1rem
-    padding-left: calc(22.222% + 1rem);
-    padding-right: 1rem;
+ .summary-header {
+   padding-left: calc(22.222% + 1rem);
+   padding-right: 1rem;
 
-    @include breakpoint(phablet) {
-      padding-left: calc(33.333% + 1rem);
-    }
+   @include breakpoint(phablet) {
+     padding-left: calc(33.333% + 1rem);
+   }
 
-    .product-producer {
-      color: $grey-550;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-style: italic;
+   .product-producer {
+     color: $grey-550;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     font-style: italic;
 
-      a {
-        color: $teal-500;
+     a {
+       color: $teal-500;
 
-        &:hover, &:focus, &:active {
-          color: $teal-600;
-          text-decoration: underline;
-        }
-      }
-    }
+       &:hover, &:focus, &:active {
+         color: $teal-600;
+         text-decoration: underline;
+       }
+     }
+   }
 
-    h3 {
-      font-size: 1.3rem;
-      margin-top: 0.75rem;
-      margin-bottom: 0.6rem;
-    }
+   h3 {
+     font-size: 1.3rem;
+     margin-top: 0.75rem;
+     margin-bottom: 0.6rem;
+   }
 
-    h3 a {
-      color: $orange-500;
+   h3 a {
+     color: $orange-500;
 
-      &:hover, &:focus, &:active {
-        color: $orange-600;
-        text-decoration: underline;
-      }
-    }
+     &:hover, &:focus, &:active {
+       color: $orange-600;
+       text-decoration: underline;
+     }
+   }
 
-    .product-description {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-bottom: 0.75rem;
-      cursor: pointer;
-      // Force product description to be on one line
-      // and truncate with ellipsis
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden; 
-      // line-clamp is not supported in Safari
-      // Trick to get overflow: hidden to work in old Safari
-      line-height: 1rem;
-      height: 1.75rem;
+   .product-description {
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     margin-bottom: 0.75rem;
+     cursor: pointer;
+     display: -webkit-box;
+     -webkit-line-clamp: 1;
+     -webkit-box-orient: vertical;
+     overflow: hidden;
+     line-height: 1rem;
+     height: 1.75rem;
 
-      > div {
-        margin-bottom: 1.5rem; // Equivalent to p (trix doesn't use p as separator by default, so emulate div as p to be backward compatible)
-      }
+     > div {
+       margin-bottom: 1.5rem;
+     }
 
-      @include trix-styles;
-    }
+     @include trix-styles;
+   }
 
-    .product-properties {
-      margin: .5em 0;
+   .product-properties {
+     margin: .5em 0;
 
-      li {
-        margin: 0 0.25rem 0.25rem 0;
+     li {
+       margin: 0 0.25rem 0.25rem 0;
 
-        a {
-          padding: 0.1em 0.625em;
+       a {
+         padding: 0.1em 0.625em;
+         cursor: auto;
 
-          cursor: auto;
+         &.has-tip {
+           cursor: pointer;
+           font-weight: normal;
+         }
+         &:hover, &:focus {
+           border-color: #ccc;
+         }
+       }
 
-          &.has-tip {
-            cursor: pointer;
-            font-weight: normal;
-          }
-          &:hover, &:focus {
-            border-color: #ccc;
-          }
-        }
-
-        // Foundation doesn't show the nub on mobile.
-        // Repeating the style to show it here.
-        .nub {
-          border-color: transparent transparent #333333 transparent;
-        }
-      }
-    }
-  }
+       .nub {
+         border-color: transparent transparent #333333 transparent;
+       }
+     }
+   }
+ }
 }

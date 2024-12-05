@@ -65,8 +65,8 @@
                       - # TODO use an helper
                       - unit_price = UnitPrice.new(variant)
                       - price_per_unit = variant.price / (unit_price.denominator || 1)
-                      = "#{Spree::Money.new(price_per_unit)}&nbsp;/&nbsp;#{unit_price.unit}".html_safe
-
+                        = "#{Spree::Money.new(price_per_unit)}&nbsp;/&nbsp;#{unit_price.unit}".html_safe 
+                  
 
                   .medium-3.columns.total-price
                     %span
